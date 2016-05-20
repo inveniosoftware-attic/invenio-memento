@@ -29,6 +29,7 @@ from __future__ import absolute_import
 from invenio_db import db
 from invenio_files_rest.models import Bucket
 from sqlalchemy.dialects import mysql
+from sqlalchemy.orm import validates
 from sqlalchemy_utils.types import UUIDType
 
 
@@ -64,3 +65,8 @@ class MementoArchives(db.Model):
     def __repr__(self):
         """Return representation of Memento."""
         return '{0.archived}/{0.key}:{0.bucket_id}'.format(self)
+
+    @validates('archived')
+    def validate_archived(self, key, value):
+        """Remove microseconds from the value."""
+        return value.replace(microsecond=0) if value else value

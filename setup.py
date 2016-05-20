@@ -62,6 +62,7 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.2',
+    'invenio-db>=1.0.0a9',
     'invenio-files-rest>=1.0.0a1',
 ]
 
@@ -91,6 +92,9 @@ setup(
     entry_points={
         'invenio_base.apps': [
             'invenio_memento = invenio_memento:InvenioMemento',
+        ],
+        'invenio_base.converters': [
+            'archived = invenio_memento.converters:ArchivedConverter',
         ],
         'invenio_i18n.translations': [
             'messages = invenio_memento',

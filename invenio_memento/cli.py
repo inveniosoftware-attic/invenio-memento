@@ -32,6 +32,7 @@ import click
 from flask_cli import with_appcontext
 from invenio_db import db
 
+
 #
 # Memento management commands
 #

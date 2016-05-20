@@ -22,30 +22,28 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Invenio module makes your site Memento compliant."""
-
-# TODO: This is an example file. Remove it if you do not need it, including
-# the templates and static folders as well as the test case.
+"""Werkzeug URL converters."""
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, render_template
+from datetime import datetime
 
-blueprint = Blueprint(
-    'invenio_memento',
-    __name__,
-    template_folder='templates',
-    static_folder='static',
-    url_prefix='/archive',
-)
+from werkzeug.routing import BaseConverter, Map, Rule, ValidationError
 
 
-@blueprint.route('/<archived:archived>/<path:key>')
-def archive(archived, key):
-    """Basic view."""
-    from .models import MementoArchives
+class ArchivedConverter(BaseConverter):
+    """Parse archivation datetime."""
 
-    memento = MementoArchives.query.filter_by(
-        archived=archived, key=key
-    ).first_or_404()
-    return render_template('invenio_memento/index.html', memento=memento)
+    def __init__(self, url_map, format=None, regex=None):
+        """Default constructor for 'YYYYmmddHHMMSS' datetime format."""
+        super(ArchivedConverter, self).__init__(url_map)
+        self.format = format or '%Y%m%d%H%M%S'
+        self.regex = regex or '([^/]*)'
+
+    def to_python(self, value):
+        """Convert URL value to Python object."""
+        return datetime.strptime(value, self.format).replace(microsecond=0)
+
+    def to_url(self, value):
+        """Format datetime with ``self.format``."""
+        return value.strftime(self.format)

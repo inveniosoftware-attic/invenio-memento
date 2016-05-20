@@ -26,9 +26,10 @@
 {%- block page_body %}
 <h2>
   {{ _('Archive of %(key)s', key=memento.key) }}
-  <small> {{ _('from %(date)s', date=memento.archived }}</small>
+  <small> {{ _('from %(date)s', date=memento.archived) }}</small>
 </h2>
 
-{{ memento.key }} / {{ memento.bucket }}
+<iframe src="/files/{{ memento.bucket_id }}/{{ memento.key }}"
+        style="width: 100%; height: 100vw; border: none;"></iframe>
 
 {%- endblock %}

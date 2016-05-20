@@ -84,6 +84,7 @@ from invenio_files_rest.models import Bucket, FileInstance, Location, \
 from invenio_rest import InvenioREST
 
 from invenio_memento import InvenioMemento
+from invenio_memento.converters import ArchivedConverter
 from invenio_memento.views import blueprint as memento_bp
 
 # Create Flask application
@@ -112,6 +113,7 @@ InvenioAccess(app)
 InvenioFilesREST(app)
 InvenioMemento(app)
 
+app.url_map.converters['archived'] = ArchivedConverter
 app.register_blueprint(accounts_bp)
 app.register_blueprint(memento_bp)
 
