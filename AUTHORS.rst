@@ -27,4 +27,4 @@ Authors
 
 Invenio module makes your site Memento compliant.
 
-- CERN <info@invenio-software.org>
+- CERN <info@inveniosoftware.org>
