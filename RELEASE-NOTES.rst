@@ -24,7 +24,7 @@ Installation
 Documentation
 -------------
 
-   http://pythonhosted.org/invenio-memento/
+   http://invenio-memento.readthedocs.io/
 
 Happy hacking and thanks for flying Invenio-Memento.
 

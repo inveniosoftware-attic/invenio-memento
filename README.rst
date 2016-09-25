@@ -46,4 +46,4 @@ Invenio module makes your site Memento compliant.
 *This is an experimental developer preview release.*
 
 * Free software: GPLv2 license
-* Documentation: https://pythonhosted.org/invenio-memento/
+* Documentation: https://invenio-memento.readthedocs.io/
