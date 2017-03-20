@@ -90,6 +90,9 @@ setup(
     include_package_data=True,
     platforms='any',
     entry_points={
+        'flask.commands': [
+            'memento = invenio_memento.cli:cp'
+        ],
         'invenio_base.apps': [
             'invenio_memento = invenio_memento:InvenioMemento',
         ],
