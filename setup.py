@@ -102,7 +102,7 @@ setup(
         # 'invenio_base.api_apps': [],
         # 'invenio_base.api_blueprints': [],
         'invenio_base.blueprints': [
-            'invenio_memento = invenio_memento.view:blueprint',
+            'invenio_memento = invenio_memento.views:blueprint',
         ],
         'invenio_db.models': [
             'invenio_memento = invenio_memento.models',
