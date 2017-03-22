@@ -25,27 +25,22 @@
 
 """Minimal Flask application example for development.
 
+Start the Redis server.
+
 Initialize database
 
 .. code-block:: console
 
+   $ pip install -e .[all]
    $ cd examples
-   $ flask -a app.py db init
-   $ flask -a app.py db create
-
-Create a user (for accessing admin):
-
-   $ flask -a app.py users create info@inveniosoftware.org -a
-
-Load some test data:
-
-   $ flask -a app.py fixtures files
+   $ ./app-setup.sh
+   $ ./app-fixtures.sh
 
 Run example development server:
 
 .. code-block:: console
 
-   $ flask -a app.py --debug run
+   $ FLASK_APP=app.py flask run --debugger -p 5000
 
 Run example worker:
 
@@ -55,11 +50,17 @@ Run example worker:
 
 Administration interface is available on::
 
-   http://localhost:5000/admin/
+   $ open http://localhost:5000/admin/
 
 REST API is available on::
 
-   http://localhost:5000/files/
+   $ open http://localhost:5000/files/
+
+To be able to uninstall the example app:
+
+.. code-block:: console
+
+    $ ./app-teardown.sh
 """
 
 from __future__ import absolute_import, print_function
@@ -80,6 +81,7 @@ from invenio_db import InvenioDB, db
 from invenio_files_rest import InvenioFilesREST
 from invenio_files_rest.models import Bucket, FileInstance, Location, \
     ObjectVersion
+from invenio_files_rest.views import blueprint as files_rest_bp
 from invenio_rest import InvenioREST
 
 from invenio_memento import InvenioMemento
@@ -94,8 +96,6 @@ app.config.update(dict(
     CELERY_EAGER_PROPAGATES_EXCEPTIONS=True,
     CELERY_RESULT_BACKEND='cache',
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
-    SQLALCHEMY_DATABASE_URI=environ.get(
-        'SQLALCHEMY_DATABASE_URI', 'sqlite:///test.db'),
     REST_ENABLE_CORS=True,
     SECRET_KEY='CHANGEME',
     DATADIR=join(dirname(__file__), 'data')
@@ -114,7 +114,7 @@ InvenioMemento(app)
 app.url_map.converters['archived'] = ArchivedConverter
 app.register_blueprint(accounts_bp)
 app.register_blueprint(memento_bp)
-
+#  app.register_blueprint(files_rest_bp)
 
 @app.cli.group()
 def fixtures():
