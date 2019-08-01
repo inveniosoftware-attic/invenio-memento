@@ -26,7 +26,7 @@ blueprint = Blueprint(
 
 @blueprint.route('/<archived:archived>/<path:key>')
 def archive(archived, key):
-    """Basic view."""
+    """Retrun basic view."""
     from .models import MementoArchives
 
     memento = MementoArchives.query.filter_by(

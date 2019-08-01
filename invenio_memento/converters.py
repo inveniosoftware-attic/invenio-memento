@@ -19,7 +19,7 @@ class ArchivedConverter(BaseConverter):
     """Parse archivation datetime."""
 
     def __init__(self, url_map, format=None, regex=None):
-        """Default constructor for 'YYYYmmddHHMMSS' datetime format."""
+        """Set default constructor for 'YYYYmmddHHMMSS' datetime format."""
         super(ArchivedConverter, self).__init__(url_map)
         self.format = format or '%Y%m%d%H%M%S'
         self.regex = regex or '([^/]*)'
